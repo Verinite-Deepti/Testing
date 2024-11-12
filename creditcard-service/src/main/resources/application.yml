@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: creditcard-service
+  zipkin:
+    base-url: http://localhost:9411
+    service:
+      name: zipkin
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1.0
+  cloud:
+    stream:
+      bindings:
+       output:
+        destination: mydestination
+        
+
+server:
+  port: 7002
+
+logging:
+  level:
+    root: INFO
+
+#Register as Eureka Client on Discovery Server and Enable this while using Eureka Zone and Zone Affinity
+#eureka:
+#    client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#    service-url:
+#     defaultZone: http://localhost:8761/eureka/,http://localhost:8762/eureka/
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+      #     Enable this for eureka clustering - to register on both - http://localhost:8762/eureka/
+      
+#Enable this while using High Availalbility - Setup Eureka Clustering
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://eureka-1-server.com:8001/eureka,http://eureka-2-server.com:8002/eureka,http://eureka-3-server.com:8003/eureka
+
+
+# For RabbitMQ
+rabbitmq:
+   broker:
+     url: tcp://127.0.0.1:5672
+     username: guest
+     password: guest
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#          can add 
+#        - hystrix.stream,beans,mappings,health 
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  app:
+    name: CreditCard Service Application
+    version: 1.8
+    description: This is CreditCard Service Application
+    author: xyz
+
+  
+                     
